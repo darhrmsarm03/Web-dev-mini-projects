@@ -10,16 +10,21 @@
             background-color: #f4f4f4;
             margin: 0;
             padding: 20px;
+            display: flex; /* Use flexbox for centering */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            min-height: 100vh; /* Ensure body takes up at least the full viewport height */
         }
 
         .container {
             max-width: 600px;
-            margin: auto;
+            width: 100%; /* Make container responsive */
             text-align: center;
             background: #fff;
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
         }
 
         h1 {
@@ -28,11 +33,41 @@
 
         .controls {
             margin-bottom: 20px;
+            display: flex; /* Use flexbox for controls */
+            justify-content: center; /* Center controls horizontally */
+            gap: 10px; /* Add space between control elements */
+            flex-wrap: wrap; /* Allow controls to wrap on smaller screens */
+        }
+
+        .controls input[type="color"] {
+            padding: 0; /* Remove default padding for color input */
+            border: none; /* Remove default border */
+            height: 38px; /* Match button height */
+            cursor: pointer;
+        }
+
+        .controls button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .controls button:hover {
+            background-color: #0056b3;
         }
 
         canvas {
             border: 1px solid #ccc;
             cursor: crosshair;
+            max-width: 100%; /* Make canvas responsive */
+            height: auto; /* Maintain aspect ratio */
+            display: block; /* Remove extra space below canvas */
+            margin: 0 auto; /* Center canvas */
         }
     </style>
 </head>
@@ -40,7 +75,7 @@
     <div class="container">
         <h1>Pixel Art Maker</h1>
         <div class="controls">
-            <input type="color" id="colorPicker" value="#000000">
+            <input type="color" id="colorPicker" value="#000000" aria-label="Choose brush color">
             <button id="clearBtn">Clear Canvas</button>
             <button id="downloadBtn">Download as PNG</button>
         </div>
@@ -58,12 +93,32 @@
         let currentColor = colorPicker.value;
 
         const pixelSize = 20;
-        canvas.width = 400;
-        canvas.height = 400;
+        const canvasWidth = 400;
+        const canvasHeight = 400;
+        canvas.width = canvasWidth;
+        canvas.height = canvasHeight;
 
+        // Add touch event listeners for mobile compatibility
         canvas.addEventListener('mousedown', startPainting);
         canvas.addEventListener('mouseup', stopPainting);
         canvas.addEventListener('mousemove', paint);
+        canvas.addEventListener('mouseleave', stopPainting); // Stop painting when mouse leaves canvas
+
+        canvas.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // Prevent default touch behavior (like scrolling)
+            startPainting(e.touches[0]);
+        }, false); // Use passive: false for touch events
+
+        canvas.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            stopPainting();
+        }, false);
+
+        canvas.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            paint(e.touches[0]);
+        }, false);
+
         colorPicker.addEventListener('input', (e) => currentColor = e.target.value);
         clearBtn.addEventListener('click', clearCanvas);
         downloadBtn.addEventListener('click', downloadImage);
@@ -75,16 +130,24 @@
 
         function stopPainting() {
             painting = false;
-            ctx.beginPath();
+            // No need for ctx.beginPath() here for fillRect drawing
         }
 
         function paint(e) {
             if (!painting) return;
             const rect = canvas.getBoundingClientRect();
-            const x = Math.floor((e.clientX - rect.left) / pixelSize) * pixelSize;
-            const y = Math.floor((e.clientY - rect.top) / pixelSize) * pixelSize;
-            ctx.fillStyle = currentColor;
-            ctx.fillRect(x, y, pixelSize, pixelSize);
+            // Calculate canvas scale to handle responsiveness
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+
+            const x = Math.floor(((e.clientX - rect.left) * scaleX) / pixelSize) * pixelSize;
+            const y = Math.floor(((e.clientY - rect.top) * scaleY) / pixelSize) * pixelSize;
+
+            // Ensure coordinates are within canvas bounds
+            if (x >= 0 && x < canvas.width && y >= 0 && y < canvas.height) {
+                 ctx.fillStyle = currentColor;
+                 ctx.fillRect(x, y, pixelSize, pixelSize);
+            }
         }
 
         function clearCanvas() {
@@ -94,7 +157,7 @@
         function downloadImage() {
             const link = document.createElement('a');
             link.download = 'pixel-art.png';
-            link.href = canvas.toDataURL();
+            link.href = canvas.toDataURL('image/png'); // Specify image type
             link.click();
         }
     </script>
