@@ -1,86 +1,77 @@
-console.log("Welcome to Magic notes app. Write your notes here.");
+console.log("Welcome to Magic Notes App. Write your notes here.");
+
+// Display existing notes on page load
 showNotes();
 
-let myBtn = document.getElementById('myBtn');
+// Reference to the "Add Note" button
+const myBtn = document.getElementById('myBtn');
 
-myBtn.addEventListener('click', function (e) {
-    let textArea = document.getElementById('textarea');
+myBtn.addEventListener('click', () => {
+    const textArea = document.getElementById('textarea');
     let notes = localStorage.getItem('notes');
-    if (notes == null) {
-        notesObj = [];
-    } else {
-        notesObj = JSON.parse(notes);
-    }
-    notesObj.push(textArea.value);
-    localStorage.setItem("notes", JSON.stringify(notesObj));
+    let notesObj = notes ? JSON.parse(notes) : [];
 
-    textArea.value = " ";
+    // Add the new note
+    notesObj.push(textArea.value);
+    localStorage.setItem('notes', JSON.stringify(notesObj));
+
+    // Clear the textarea
+    textArea.value = '';
+
+    // Refresh the displayed notes
     showNotes();
-})
+});
 
 function showNotes() {
+    const notes = localStorage.getItem('notes');
+    const notesObj = notes ? JSON.parse(notes) : [];
 
-    let notes = localStorage.getItem('notes');
-    if (notes == null) {
-        notesObj = [];
-    }
-    else {
-        notesObj = JSON.parse(notes);
-    }
-    console.log(notesObj);
-    let html = "";
-    notesObj.forEach(function (element, index) {
+    const notesContainer = document.getElementById('notes');
+    let html = '';
 
-        html += `<div class="noteBox">
-        <h3 class="noteHeading">Note ${index + 1}</h3>
-        <p class="paraHeading">${element}</p>
-        <button class="buttonHeading" id="${index}" onclick="deleteNote(this.id)">Delete Note</button>
+    if (notesObj.length === 0) {
+        notesContainer.innerHTML = `Nothing to show, create a new note from "Add a note" section above.`;
+        return;
+    }
+
+    notesObj.forEach((note, index) => {
+        html += `
+        <div class="noteBox">
+            <h3 class="noteHeading">Note ${index + 1}</h3>
+            <p class="paraHeading">${note}</p>
+            <button class="buttonHeading" id="${index}" onclick="deleteNote(${index})">Delete Note</button>
         </div>`;
-
     });
 
-    let notesElem = document.getElementById('notes');
-    if (notesObj.length !== 0) {
-        notesElem.innerHTML = html;
-    } else {
-        notesElem.innerHTML = `Nothing to show, create a new note from "Add a note" section above.`;
-    }
-
+    notesContainer.innerHTML = html;
 }
 
-
-
-
 function deleteNote(index) {
-    
+    const notes = localStorage.getItem('notes');
+    let notesObj = notes ? JSON.parse(notes) : [];
 
-    let notes = localStorage.getItem('notes');
-
-    if (notes == null) {
-        notesObj = [];
-    } else {
-        notesObj = JSON.parse(notes);
-    }
-
+    // Remove the selected note
     notesObj.splice(index, 1);
     localStorage.setItem('notes', JSON.stringify(notesObj));
+
+    // Refresh the notes display
     showNotes();
 }
 
-let search = document.getElementById('search');
-search.addEventListener('input', function () {
+// Search functionality
+const searchInput = document.getElementById('search');
 
-    let inputVal = search.value;
-    
+searchInput.addEventListener('input', () => {
+    const inputVal = searchInput.value.toLowerCase();
+    const noteBoxes = document.getElementsByClassName('noteBox');
 
-    let noteBoxs = document.getElementsByClassName('noteBox');
-    Array.from(noteBoxs).forEach(function (element) {
-        let boxTxt = document.getElementsByTagName('p')[0].innerHTML;
-        if (boxTxt.includes(inputVal)) {
-            element.style.display = "block";
+    Array.from(noteBoxes).forEach((box) => {
+        const noteText = box.querySelector('.paraHeading').innerText.toLowerCase();
+
+        if (noteText.includes(inputVal)) {
+            box.style.display = 'block';
         } else {
-            element.style.display = "none";
+            box.style.display = 'none';
         }
-
-    })
-})
+    });
+});
