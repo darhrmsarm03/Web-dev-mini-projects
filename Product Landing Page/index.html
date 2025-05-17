@@ -1,135 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Red+Hat+Display&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="style.css" />
-    <title>Product Landing Page</title>
-  </head>
-  <body>
-    <header id="header">
-      <brand id="brand-name">
-        <img
-          src="https://img.icons8.com/ios/452/trumpet.png"
-          alt=""
-          id="header-img"
-        />
-        <h1 id="header-text">Original Trombones</h1>
-      </brand>
-      <nav id="nav-bar">
-        <ul>
-          <li class="nav-link"><a href="#feature-box"> Features</a></li>
-          <li class="nav-link"><a href="#video">How it Works</a></li>
-          <li class="nav-link"><a href="#price-box">Pricing</a></li>
-        </ul>
-      </nav>
-    </header>
-    <div id="container">
-      <h1 id="heading">Handcrafted, home-made masterpieces</h1>
-      <form action="mailto: https://www.freecodecamp.com/email-submit">
-        <input
-          type="email"
-          name=""
-          id="email"
-          placeholder="Enter email address"
-        />
-        <button class="top-button" type="submit">Get Started</button>
-      </form>
-      <div id="feature-box">
-        <div class="feature-item">
-          <div class="item1">
-            <img class="feature-img" src="./images/fire.png" alt="" />
-          </div>
-          <div class="item2"><h1 class="big-text">Premium Materials</h1></div>
-          <div class="item3">
-            <p class="small-text">
-              Our trombones use the shiniest brass which is sourced locally.
-              This will increase the longevity of your purchase.
-            </p>
-          </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Landing Page</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Red+Hat+Display&display=swap"
+    rel="stylesheet"
+  />
+  <!-- External CSS -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Header with branding and navigation -->
+  <header id="header">
+    <div id="brand-name" class="brand">
+      <img
+        src="https://img.icons8.com/ios/452/trumpet.png"
+        alt="Trumpet Icon"
+        id="header-img"
+      />
+      <h1 id="header-text">Original Trombones</h1>
+    </div>
+    <nav id="nav-bar">
+      <ul>
+        <li class="nav-link"><a href="#feature-box">Features</a></li>
+        <li class="nav-link"><a href="#video">How it Works</a></li>
+        <li class="nav-link"><a href="#price-box">Pricing</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main container -->
+  <main id="container">
+    <h1 id="heading">Handcrafted, home-made masterpieces</h1>
+    <!-- Email sign-up form -->
+    <form action="mailto:your-email@example.com" method="POST" enctype="text/plain">
+      <input
+        type="email"
+        id="email"
+        placeholder="Enter email address"
+        required
+      />
+      <button class="top-button" type="submit">Get Started</button>
+    </form>
+
+    <!-- Features section -->
+    <section id="feature-box" class="features-section">
+      <!-- Feature Item 1 -->
+      <div class="feature-item">
+        <div class="item1">
+          <img class="feature-img" src="./images/fire.png" alt="Premium Material" />
         </div>
-        <div class="feature-item">
-          <div class="item1">
-            <img class="feature-img" src="./images/truck.png" alt="" />
-          </div>
-          <div class="item2"><h1 class="big-text">Fast Shipping</h1></div>
-          <div class="item3">
-            <p class="small-text">
-              We make sure you recieve your trombone as soon as we have finished
-              making it. We also provide free returns if you are not satisfied.
-            </p>
-          </div>
+        <div class="item2">
+          <h2 class="big-text">Premium Materials</h2>
         </div>
-        <div class="feature-item">
-          <div class="item1">
-            <img class="feature-img" src="./images/quality.png" alt="" />
-          </div>
-          <div class="item2"><h1 class="big-text">Quality Assurance</h1></div>
-          <div class="item3">
-            <p class="small-text">
-              For every purchase you make, we will ensure there are no damages
-              or faults and we will check and test the pitch of your instrument.
-            </p>
-          </div>
+        <div class="item3">
+          <p class="small-text">
+            Our trombones use the shiniest brass sourced locally, increasing longevity.
+          </p>
         </div>
       </div>
-    </div>
+
+      <!-- Feature Item 2 -->
+      <div class="feature-item">
+        <div class="item1">
+          <img class="feature-img" src="./images/truck.png" alt="Fast Shipping" />
+        </div>
+        <div class="item2">
+          <h2 class="big-text">Fast Shipping</h2>
+        </div>
+        <div class="item3">
+          <p class="small-text">
+            We ensure you receive your trombone promptly. Free returns if you're not satisfied.
+          </p>
+        </div>
+      </div>
+
+      <!-- Feature Item 3 -->
+      <div class="feature-item">
+        <div class="item1">
+          <img class="feature-img" src="./images/quality.png" alt="Quality Assurance" />
+        </div>
+        <div class="item2">
+          <h2 class="big-text">Quality Assurance</h2>
+        </div>
+        <div class="item3">
+          <p class="small-text">
+            We check for damages and test the pitch of every instrument before delivery.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Video and Pricing Section -->
+  <section class="video-and-pricing" id="video-pricing-section">
+    <!-- YouTube Video -->
     <div class="video-box">
       <iframe
         id="video"
         height="315"
-        src="https://www.youtube-nocookie.com/embed/y8Yv4pnO7qc?rel=0&amp;controls=0&amp;showinfo=0"
+        src="https://www.youtube-nocookie.com/embed/y8Yv4pnO7qc?rel=0&controls=0&showinfo=0"
         frameborder="0"
-        allowfullscreen=""
+        allowfullscreen
       ></iframe>
-      <div id="price-box">
-        <div class="price-1 price-box-style">
-          <h1 class="price-heading">TENOR TROMBONE</h1>
-          <h1 class="price">$600</h1>
-          <p class="price-desc">
-            Lorem ipsum <br />
-            Lorem ipsum <br />
-            Lorem ipsum <br />
-            Lorem ipsum
-          </p>
-          <button type="submit" class="price-button">SELECT</button>
-        </div>
-        <div class="price-2 price-box-style">
-          <h1 class="price-heading">BASE TROMBONE</h1>
-          <h1 class="price">$900</h1>
-          <p class="price-desc">
-            Lorem ipsum <br />
-            Lorem ipsum <br />
-            Lorem ipsum <br />
-            Lorem ipsum
-          </p>
-          <button type="submit" class="price-button">SELECT</button>
-        </div>
-        <div class="price-3 price-box-style">
-          <h1 class="price-heading">VALVE TROMBONE</h1>
-          <h1 class="price">$1200</h1>
-          <p class="price-desc">
-            Lorem ipsum <br />
-            Lorem ipsum <br />
-            Lorem ipsum <br />
-            Lorem ipsum
-          </p>
-          <button type="submit" class="price-button">SELECT</button>
-        </div>
+    </div>
+
+    <!-- Pricing options -->
+    <div id="price-box" class="price-container">
+      <!-- Tenor Trombone -->
+      <div class="price-box style1">
+        <h2 class="price-heading">TENOR TROMBONE</h2>
+        <h3 class="price">$600</h3>
+        <p class="price-desc">
+          Lorem ipsum<br />
+          Lorem ipsum<br />
+          Lorem ipsum<br />
+          Lorem ipsum
+        </p>
+        <button class="price-button" type="button">SELECT</button>
       </div>
-      <div class="footer">
-      
-          <a href="#" class="footer-list">Privacy</a>
-          <a href="#" class="footer-list">Terms</a>
-          <a href="#" class="footer-list">Contact</a>
-      
+
+      <!-- Bass Trombone -->
+      <div class="price-box style2">
+        <h2 class="price-heading">BASE TROMBONE</h2>
+        <h3 class="price">$900</h3>
+        <p class="price-desc">
+          Lorem ipsum<br />
+          Lorem ipsum<br />
+          Lorem ipsum<br />
+          Lorem ipsum
+        </p>
+        <button class="price-button" type="button">SELECT</button>
+      </div>
+
+      <!-- Valve Trombone -->
+      <div class="price-box style3">
+        <h2 class="price-heading">VALVE TROMBONE</h2>
+        <h3 class="price">$1200</h3>
+        <p class="price-desc">
+          Lorem ipsum<br />
+          Lorem ipsum<br />
+          Lorem ipsum<br />
+          Lorem ipsum
+        </p>
+        <button class="price-button" type="button">SELECT</button>
       </div>
     </div>
-  </body>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <a href="#" class="footer-link">Privacy</a>
+    <a href="#" class="footer-link">Terms</a>
+    <a href="#" class="footer-link">Contact</a>
+    <p class="footer-desc">Made by ❤ Jugesh Raghav</p>
+  </footer>
+</body>
 </html>
